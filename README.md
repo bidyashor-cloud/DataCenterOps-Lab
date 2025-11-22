@@ -1,168 +1,161 @@
-# 📄 README.md
+# 📄 **README.md**
 
-# 🏗️ My DataCenterOps Virtual Lab (VirtualBox + Ubuntu Server)
+# 🏗️ My Virtual Lab (VirtualBox + Ubuntu Server)
 
-This project is my own virtual Data Center Operations lab that I built using VirtualBox and Ubuntu Server.
+This project is my personal virtual lab environment built using VirtualBox and Ubuntu Server.
+I created it so I can practice real technical skills such as Linux administration, networking, log analysis, troubleshooting, and general server operations—all on my own laptop.
 
-I created this lab to practice real data center skills like installing servers, configuring networks, analyzing logs, simulating failures, and troubleshooting issues — all using just my personal laptop.
-
-The idea is to recreate a small two-server environment similar to what you would see inside an actual data center, but in a fully virtual setup.
-
----
-
-## 🔧 Technologies I Used
-
-* **VirtualBox** (for creating virtual servers)
-* **Ubuntu Server 22.04 LTS** (Linux OS for both VMs)
-* **Linux CLI, Bash**
-* **NAT + Internal Network setup**
-* **Netplan for static IP configuration**
-* **System logs: syslog, dmesg, journalctl**
-* **Troubleshooting tools:** ping, top, free, df, ss, traceroute
+The setup contains two Ubuntu Server VMs connected through an internal network, which lets me simulate multi-server workflows and issues in a safe environment.
 
 ---
 
-## 📡 My Lab Architecture
+## 🔧 **Technologies Used**
 
-This is the lab I built:
+* **VirtualBox** – virtual machine platform
+* **Ubuntu Server 22.04 LTS**
+* **Linux command line & Bash**
+* **NAT + Internal Network configuration**
+* **Netplan** for static IP assignment
+* **System logs:** `dmesg`, `syslog`, `journalctl`
+* **Troubleshooting tools:** ping, ss, free, top, df, traceroute
+
+---
+
+## 📡 **Lab Architecture**
 
 ```
     +----------------------+
-    |   VM1 – Server 1     |
-    |  192.168.10.10       |
-    |  Internal Network    |
+    |     VM1 – Server 1   |
+    |     192.168.10.10    |
+    |   Internal Network   |
     +----------+-----------+
                |
-               |  Internal Network (intnet)
+               |  intnet (Internal Network)
                |
     +----------+-----------+
-    |   VM2 – Server 2     |
-    |  192.168.10.20       |
-    |  Internal Network    |
+    |     VM2 – Server 2   |
+    |     192.168.10.20    |
+    |   Internal Network   |
     +----------------------+
 ```
 
-Both servers also use NAT for internet access.
+Both machines also use **NAT** for internet access.
 
-This setup gives me:
+This design gives me:
 
 * Internet access for updates
-* Private communication between both servers
-* A small multi-server environment for troubleshooting
+* Private communication between the VMs
+* A stable multi-VM setup for learning and testing
 
 ---
 
-## 🎯 What I’m Trying to Learn in This Lab
+## 🎯 **What I’m Learning Through This Lab**
 
-* How virtual servers are created and configured
-* How data centers use NAT + private internal networks
-* How to assign static IPs and manage network settings
-* How servers communicate
+* How virtual machines are created and configured
+* How internal networks work in virtual environments
+* How to assign static IPs using Netplan
+* How servers communicate and route traffic
 * How to read and understand Linux system logs
-* How to detect and fix errors in a real troubleshooting workflow
-* How failures actually look inside a server environment
+* How to identify and fix system issues
+* How real troubleshooting looks inside a Linux server
 
 ---
 
-## 🚀 Step-by-Step Setup (Documented in the `setup/` folder)
+## 🚀 **Step-by-Step Documentation (stored in `/setup`)**
 
-I documented everything I did so far:
-
-### 1️⃣ Installing VirtualBox
+### **1️⃣ Installing VirtualBox**
 
 `setup/virtualbox-installation.md`
-How I downloaded and installed VirtualBox and the Ubuntu Server ISO.
+How I installed VirtualBox and prepared the Ubuntu ISO.
 
-### 2️⃣ Creating My Virtual Machines
+### **2️⃣ Creating My Virtual Machines**
 
 `setup/vm-creation.md`
-How I created two Ubuntu Server VMs for my virtual data center.
+How I created two Ubuntu Server VMs (VM1 and VM2).
 
-### 3️⃣ Configuring Networking
+### **3️⃣ Network Configuration**
 
 `setup/network-configuration.md`
-How I configured NAT + Internal Network and set static IPs.
+How I configured NAT + Internal Network and assigned static IPs.
 
 ---
 
-## 🔍 Troubleshooting Scenarios (in progress)
+## 🛠️ **Troubleshooting Scenarios (in progress)**
 
-I am documenting different issues I can reproduce inside the servers, such as:
+I’m documenting real issues I intentionally reproduce, such as:
 
-* Disk full errors
-* Service crashes
-* Unexpected shutdowns
-* Network misconfigurations
+* Network failures
+* SSH problems
+* Disk space issues
+* Misconfigured services
+* Boot-level warnings
+* Package failures
 
-These are stored in the `troubleshooting/` folder.
+All troubleshooting is stored in:
+`/troubleshooting/`
 
 ---
 
-## 📝 System Logs
+## 📝 **System Logs**
 
-I saved actual logs from inside the VMs:
+I exported actual logs from inside the VMs so I can study them later:
 
 * `logs/syslog.txt`
 * `logs/dmesg.txt`
 
-These logs help me understand how servers behave during failures.
+These help me understand how the system behaves during boot, network setup, and errors.
 
 ---
 
-## 📸 Screenshots
+## 📸 **Screenshots**
 
-I will also attach screenshots of:
+I plan to store screenshots of:
 
-* VM creation
-* Network settings
+* VM settings
+* Network configuration
 * Ping tests
 * Errors
 * Fixes
 
-Screenshots will be stored in the `screenshots/` folder.
+They will go inside the `/screenshots/` folder.
 
 ---
 
-## ✔️ Current Status
+## ✔️ **Current Status**
 
-I am actively updating this project as I complete each part of the lab.
-This is an ongoing learning project to help me improve in:
+I am actively updating this project as I learn more.
+So far, I have completed:
 
-* Data Center Operations
-* Linux administration
-* Troubleshooting
-* Infrastructure basics
+* Creating two virtual machines
+* Installing Ubuntu Server on both
+* Configuring NAT + Internal networking
+* Assigning static IP addresses
+* Exporting log files
+* Testing connectivity between the servers
 
----
-
-## 🎓 Why I Built This Lab
-
-My goal is to gain hands-on technical experience that aligns with real data center work such as:
-
-* Server setup
-* Internal networking
-* Monitoring
-* Issue diagnosis
-* Reliability and support
-
-This project helps me practice the skills needed for roles like:
-
-* Data Center Operations Trainee
-* Cloud Support
-* Infrastructure Technician
-* Linux Server Tech
+This lab is helping me improve my understanding of Linux, networking, and troubleshooting.
 
 ---
 
-## 📌 Next Updates (Coming Soon)
+## 🎓 **Why I Built This Lab**
 
-* More troubleshooting scenarios
-* Monitoring setup
-* Load testing between the VMs
-* Adding automation using simple Bash scripts
+I created this environment so I can gain practical, hands-on experience that aligns with real technical job roles such as:
+
+* Server Operations
+* Linux Support
+* Cloud / Infrastructure Technician
+* IT Support Engineer
+
+It allows me to practice installation, configuration, monitoring, and diagnosing problems in a real-world way—without needing physical hardware.
 
 ---
 
-# 🎉 DONE
+## 📌 **Upcoming Additions**
+
+* More detailed troubleshooting cases
+* Simple monitoring setup
+* Load testing between VMs
+* Automation using shell scripts
+* A small logging or metrics dashboard
 
 ---

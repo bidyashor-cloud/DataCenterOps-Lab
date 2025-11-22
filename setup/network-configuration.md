@@ -1,25 +1,23 @@
-# 🛰️ Network Configuration for My DataCenterOps Lab
+# 🛰️ Network Configuration for My VirtualBox Lab
 
-In this part of my project, I am setting up the network for both of my VirtualBox VMs so they can talk to each other just like servers inside a real data center.
+This document explains how I set up networking for my two Ubuntu Server VMs in VirtualBox. My goal was to create a simple internal lab environment where both VMs can communicate with each other while still having internet access for updates and package installations.
 
-I will be configuring:
+To achieve this, I configured:
 
 * NAT (for internet access)
 * Internal Network (for private VM-to-VM communication)
-* Static IP addresses
-* Connectivity testing
+* Static IP addresses on each VM
+* Ping tests to verify connectivity
 
 ---
 
-## 1️⃣ Setting Up Network Adapters in VirtualBox
+## 1️⃣ Setting Up the Network Adapters
 
-Each VM needs **two** network adapters.
+Each VM uses **two** network adapters.
 
-### **Adapter 1 — NAT**
+### **Adapter 1 — NAT (Internet Access)**
 
-This gives the VM access to the internet so I can install updates.
-
-Settings I selected:
+This adapter gives my VMs internet connectivity.
 
 ```
 Adapter 1 → Enable Network Adapter
@@ -28,11 +26,9 @@ Attached to: NAT
 
 ---
 
-### **Adapter 2 — Internal Network**
+### **Adapter 2 — Internal Network (VM-to-VM Communication)**
 
-This allows both VMs to communicate with each other only inside VirtualBox.
-
-Settings I selected:
+This adapter allows both VMs to communicate privately inside VirtualBox.
 
 ```
 Adapter 2 → Enable Network Adapter
@@ -40,33 +36,24 @@ Attached to: Internal Network
 Name: intnet
 ```
 
-I made sure both VMs use the **same internal network name (`intnet`)**.
+Both VMs use the same internal network name: `intnet`.
 
 ---
 
-## 2️⃣ Configuring Static IP Addresses Inside the VMs
+## 2️⃣ Configuring Static IPs Using Netplan
 
-Now inside each VM, I set a **static IP** so the two systems always get the same address.
-
-I opened the netplan file with:
-
-```bash
-sudo nano /etc/netplan/00-installer-config.yaml
-```
+I set static internal IPs so each VM always has the same address.
 
 ---
 
-## 🖥️ VM1 (Server 1) – My Settings
-
-I gave VM1 the following IP:
+## 🖥️ VM1 (Server 1) – Static IP
 
 ```
 IP: 192.168.10.10
-Gateway: 192.168.10.1
 DNS: 8.8.8.8
 ```
 
-My actual netplan config looked like this:
+Netplan configuration:
 
 ```yaml
 network:
@@ -75,26 +62,24 @@ network:
     enp0s3:
       dhcp4: true
     enp0s8:
+      dhcp4: false
       addresses:
         - 192.168.10.10/24
-      gateway4: 192.168.10.1
       nameservers:
-        addresses: [8.8.8.8]
+        addresses:
+          - 8.8.8.8
 ```
 
 ---
 
-## 🖥️ VM2 (Server 2) – My Settings
-
-For VM2, I used:
+## 🖥️ VM2 (Server 2) – Static IP
 
 ```
 IP: 192.168.10.20
-Gateway: 192.168.10.1
 DNS: 8.8.8.8
 ```
 
-Netplan config:
+Netplan configuration:
 
 ```yaml
 network:
@@ -103,102 +88,112 @@ network:
     enp0s3:
       dhcp4: true
     enp0s8:
+      dhcp4: false
       addresses:
         - 192.168.10.20/24
-      gateway4: 192.168.10.1
       nameservers:
-        addresses: [8.8.8.8]
+        addresses:
+          - 8.8.8.8
 ```
 
 ---
 
-## 3️⃣ Applying My Network Configuration
+## 3️⃣ Applying the Network Configuration
 
-I applied the changes using:
+I applied the configuration:
 
 ```bash
 sudo netplan apply
 ```
 
-Then verified it with:
+Then verified:
 
 ```bash
 ip a
 ```
 
+I confirmed:
+
+* `enp0s3` received a NAT DHCP address
+* `enp0s8` showed the static IP I configured
+
 ---
 
-## 4️⃣ Testing Connection Between My VMs
+## 4️⃣ Testing Connectivity Between My VMs
 
-From **VM1**, I tested:
+I tested communication using `ping`.
+
+From **VM1**:
 
 ```bash
 ping 192.168.10.20
 ```
 
-From **VM2**, I tested:
+From **VM2**:
 
 ```bash
 ping 192.168.10.10
 ```
 
-If both responded → internal network is working perfectly.
+Both responded, confirming the internal network works correctly.
 
 ---
 
-## 5️⃣ How I Fixed Common Issues
+## 5️⃣ Issues I Faced and How I Fixed Them
 
-### ❌ If VMs couldn’t ping each other
+### ❌ VMs Could Not Ping Each Other
 
 I checked:
 
-* Adapter 2 is set to Internal Network
-* Both VMs use the same name: `intnet`
+* Adapter 2 was set to *Internal Network*
+* Both VMs used the name `intnet`
 * Firewall status:
 
 ```bash
 sudo ufw status
 ```
 
----
+### ❌ Static IP Was Not Applying
 
-### ❌ If my static IP didn’t apply
-
-I ran:
+I used:
 
 ```bash
 sudo netplan generate
 sudo netplan apply
 ```
 
-Also checked indentation in the YAML file (very important).
+Then re‑checked YAML indentation.
+
+### ❌ Internet Was Not Working
+
+I verified that the NAT interface (`enp0s3`) was using:
+
+```
+dhcp4: true
+```
+
+### ❌ SSH Collisions After Cloning the VM
+
+I fixed this by:
+
+* Regenerating machine‑id
+* Refreshing MAC addresses in VirtualBox
+* Assigning different SSH port forwards for each VM
 
 ---
 
-### ❌ If internet didn’t work inside the VM
+## 🏁 What I Completed Successfully
 
-I made sure NAT was enabled and the primary adapter was:
-
-```
-enp0s3 → dhcp4: true
-```
-
----
-
-## ✔ Summary (What I Completed)
-
-In this section, I successfully configured:
-
-* NAT for internet
-* Internal network for VM communication
-* Static IP addresses
-* Connectivity testing
-* Troubleshooting and validation
-
-This network setup makes my virtual lab behave like a simple **data center network environment**, which is exactly what I want to practice for AWS Data Center Operations.
+* Created two Ubuntu Server VMs
+* Set up NAT for internet
+* Set up an Internal Network for private communication
+* Assigned static IPs (192.168.10.10 and 192.168.10.20)
+* Verified VM‑to‑VM connectivity
+* Enabled SSH access using separate port forwarding
+* Fixed copy/paste issues by using SSH
+* Resolved clone‑related MAC/machine‑id conflicts
+* Fully built a working internal VirtualBox lab network
 
 ---
 
 # ✔ Done!
-
----

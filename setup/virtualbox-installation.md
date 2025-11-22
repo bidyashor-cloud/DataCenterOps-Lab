@@ -1,12 +1,12 @@
-# 🖥️ Installing VirtualBox for My DataCenterOps Lab
+# 🖥️ Installing VirtualBox for My Virtual Lab
 
-In this part of the project, I installed VirtualBox on my system so I can create and run multiple Linux virtual machines. These VMs will act like small servers inside a mini data center environment.
+In this part of my project, I installed Oracle VirtualBox on my Windows system so I can create and run multiple Ubuntu Server virtual machines. These VMs will act as a simple internal lab environment where I can practice Linux, networking, and server operations.
 
 ---
 
 ## 1️⃣ Downloading VirtualBox
 
-I downloaded the latest version of VirtualBox from the official website:
+I started by downloading the latest version of VirtualBox from the official website:
 
 [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 
@@ -14,64 +14,66 @@ Since I’m using Windows, I clicked on:
 
 * **Windows hosts**
 
-This downloaded the VirtualBox installer (`.exe` file).
+This downloaded the VirtualBox installer (`.exe` file) to my system.
 
 ---
 
 ## 2️⃣ Installing VirtualBox
 
-Once the installer downloaded, I followed these steps:
+After the download finished, I installed VirtualBox by following these steps:
 
-1. Double-clicked the installer
-2. Clicked **Next** through the setup pages
-3. Selected all default components
-4. Clicked **Yes** when it warned about network interfaces
-5. Clicked **Install**
-6. Waited for installation to complete
-7. Clicked **Finish**
+1. Double-clicked the installer file
+2. Clicked **Next** through the setup screens
+3. Kept the default installation components
+4. Clicked **Yes** when Windows asked about creating network interfaces
+5. Pressed **Install**
+6. Waited for the installation to complete
+7. Clicked **Finish** to launch VirtualBox
 
-After this, VirtualBox was successfully installed on my system.
+At this point, VirtualBox was successfully installed on my machine.
 
 ---
 
-## 3️⃣ Verifying My Installation
+## 3️⃣ Verifying the Installation
 
-To make sure everything worked correctly, I opened VirtualBox from the Start Menu.
+To confirm that everything installed correctly, I opened VirtualBox from the Start Menu.
 
-I checked that:
+I checked the following:
 
 * The VirtualBox main window opened without errors
-* The “New” button for creating VMs was available
-* I could access the Network Settings and Preferences
+* I could see the **New** button to create virtual machines
+* The **Preferences** and **Network** options were available
 
-This confirmed VirtualBox installed correctly.
+This confirmed that VirtualBox was installed and working correctly.
 
 ---
 
 ## 4️⃣ Downloading the Ubuntu Server ISO
 
-To prepare for creating VMs, I downloaded the **Ubuntu Server 22.04 LTS ISO** from:
+To prepare for creating my virtual machines, I downloaded the **Ubuntu Server 22.04 LTS ISO** from the official Ubuntu website:
 
 [https://ubuntu.com/download/server](https://ubuntu.com/download/server)
 
-I chose the **server version** because:
+I chose the server edition because:
 
-* It uses a terminal (like real servers in a data center)
+* It runs in the terminal (like real Linux servers)
 * It is lightweight
-* It’s perfect for practicing Linux troubleshooting
+* It’s great for practicing Linux commands and troubleshooting
 
 I saved the ISO file to my Downloads folder.
 
 ---
 
-## 5️⃣ What’s Next?
+## 5️⃣ What I Will Do Next
 
-Now that VirtualBox and the Ubuntu ISO are ready, the next steps will be:
+Now that I have VirtualBox installed and the Ubuntu Server ISO ready, the next steps will be:
 
-* Creating two Linux VMs
-* Configuring CPU, RAM, and storage
-* Installing Ubuntu inside each VM
+* Creating two Ubuntu Server VMs
+* Configuring CPU, RAM, and storage for each VM
+* Installing Ubuntu Server inside both VMs
 
-I will document these steps in the `vm-creation.md` file in the next part of my project.
+I will document these steps in **vm-creation.md** as the next part of my project.
 
 ---
+
+# ✔ Done!

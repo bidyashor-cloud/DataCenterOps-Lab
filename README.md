@@ -2,22 +2,20 @@
 
 # 🏗️ My Virtual Lab (VirtualBox + Ubuntu Server)
 
-This project is my personal virtual lab environment built using VirtualBox and Ubuntu Server.
-I created it so I can practice real technical skills such as Linux administration, networking, log analysis, troubleshooting, and general server operations—all on my own laptop.
-
-The setup contains two Ubuntu Server VMs connected through an internal network, which lets me simulate multi-server workflows and issues in a safe environment.
+This project is a complete virtual lab environment that I built using VirtualBox and Ubuntu Server.
+It includes two fully configured virtual machines, internal networking, static IP setup, log collection, and basic troubleshooting scenarios — all created and tested on my own laptop.
 
 ---
 
 ## 🔧 **Technologies Used**
 
-* **VirtualBox** – virtual machine platform
-* **Ubuntu Server 22.04 LTS**
-* **Linux command line & Bash**
-* **NAT + Internal Network configuration**
-* **Netplan** for static IP assignment
-* **System logs:** `dmesg`, `syslog`, `journalctl`
-* **Troubleshooting tools:** ping, ss, free, top, df, traceroute
+* VirtualBox
+* Ubuntu Server 22.04 LTS
+* Linux CLI / Bash
+* NAT + Internal Network
+* Netplan for static IPs
+* System logs: `dmesg`, `syslog`, `journalctl`
+* Tools: ping, ss, traceroute, free, df, top
 
 ---
 
@@ -27,135 +25,119 @@ The setup contains two Ubuntu Server VMs connected through an internal network, 
     +----------------------+
     |     VM1 – Server 1   |
     |     192.168.10.10    |
-    |   Internal Network   |
     +----------+-----------+
                |
-               |  intnet (Internal Network)
+               | Internal Network (intnet)
                |
     +----------+-----------+
     |     VM2 – Server 2   |
     |     192.168.10.20    |
-    |   Internal Network   |
     +----------------------+
 ```
 
-Both machines also use **NAT** for internet access.
+Both VMs also use NAT for internet access.
 
-This design gives me:
-
-* Internet access for updates
-* Private communication between the VMs
-* A stable multi-VM setup for learning and testing
+This setup allowed me to install packages, test connectivity, simulate issues, and practice troubleshooting between two servers.
 
 ---
 
-## 🎯 **What I’m Learning Through This Lab**
+## ✔️ **What I Completed in This Lab**
 
-* How virtual machines are created and configured
-* How internal networks work in virtual environments
-* How to assign static IPs using Netplan
-* How servers communicate and route traffic
-* How to read and understand Linux system logs
-* How to identify and fix system issues
-* How real troubleshooting looks inside a Linux server
+### **1️⃣ Installed VirtualBox**
 
----
-
-## 🚀 **Step-by-Step Documentation (stored in `/setup`)**
-
-### **1️⃣ Installing VirtualBox**
-
+Documented in:
 `setup/virtualbox-installation.md`
-How I installed VirtualBox and prepared the Ubuntu ISO.
 
-### **2️⃣ Creating My Virtual Machines**
+I installed VirtualBox on Windows and prepared the Ubuntu Server ISO.
 
+---
+
+### **2️⃣ Created Two Virtual Machines**
+
+Documented in:
 `setup/vm-creation.md`
-How I created two Ubuntu Server VMs (VM1 and VM2).
 
-### **3️⃣ Network Configuration**
+I created VM1 manually and then cloned it to create VM2.
+Both machines are fully installed and configured with Ubuntu Server.
 
+---
+
+### **3️⃣ Configured Networking + Static IPs**
+
+Documented in:
 `setup/network-configuration.md`
-How I configured NAT + Internal Network and assigned static IPs.
+
+I assigned static IPs:
+
+* VM1 → `192.168.10.10`
+* VM2 → `192.168.10.20`
+
+I set up:
+
+* **Adapter 1:** NAT
+* **Adapter 2:** Internal Network (intnet)
+
+Ping tests and SSH connectivity were verified between both servers.
 
 ---
 
-## 🛠️ **Troubleshooting Scenarios (in progress)**
+### **4️⃣ Collected System Logs**
 
-I’m documenting real issues I intentionally reproduce, such as:
+Stored in the `logs/` folder:
 
-* Network failures
-* SSH problems
-* Disk space issues
-* Misconfigured services
-* Boot-level warnings
-* Package failures
+* `syslog.txt`
+* `dmesg.txt` (full actual output from VM1)
 
-All troubleshooting is stored in:
-`/troubleshooting/`
+These logs helped me understand the boot process, network initialization, hardware detection, and warnings.
 
 ---
 
-## 📝 **System Logs**
+### **5️⃣ Troubleshooting I Performed**
 
-I exported actual logs from inside the VMs so I can study them later:
+(Stored in the `troubleshooting/` folder)
 
-* `logs/syslog.txt`
-* `logs/dmesg.txt`
+I tested and fixed several issues during the lab, including:
 
-These help me understand how the system behaves during boot, network setup, and errors.
+* Static IP misconfiguration
+* Broken netplan YAML
+* VirtualBox adapter issues
+* SSH connection failures
+* Network timeout and routing problems
 
 ---
 
 ## 📸 **Screenshots**
 
-I plan to store screenshots of:
+The `screenshots/` folder contains images of:
 
-* VM settings
-* Network configuration
+* Network adapter settings
+* Static IP configuration
 * Ping tests
-* Errors
-* Fixes
-
-They will go inside the `/screenshots/` folder.
+* Successful SSH access
+* Errors and fixes
 
 ---
 
-## ✔️ **Current Status**
+## 🎓 **What I Learned**
 
-I am actively updating this project as I learn more.
-So far, I have completed:
-
-* Creating two virtual machines
-* Installing Ubuntu Server on both
-* Configuring NAT + Internal networking
-* Assigning static IP addresses
-* Exporting log files
-* Testing connectivity between the servers
-
-This lab is helping me improve my understanding of Linux, networking, and troubleshooting.
+* How to build and configure a multi-VM environment
+* How NAT and internal networks work
+* How to assign static IPs using Netplan
+* How to troubleshoot Linux connectivity issues
+* How to read system logs (`dmesg`, syslog, journalctl)
+* How to debug VirtualBox networking and VM cloning issues
 
 ---
 
-## 🎓 **Why I Built This Lab**
+## ✔️ **Project Status: Completed**
 
-I created this environment so I can gain practical, hands-on experience that aligns with real technical job roles such as:
+This lab is fully set up, tested, verified, and documented.
+All steps, logs, and configurations are included in this repository.
 
-* Server Operations
-* Linux Support
-* Cloud / Infrastructure Technician
-* IT Support Engineer
-
-It allows me to practice installation, configuration, monitoring, and diagnosing problems in a real-world way—without needing physical hardware.
+If I add anything in the future, it will simply be extra improvements or more troubleshooting examples.
 
 ---
 
-## 📌 **Upcoming Additions**
-
-* More detailed troubleshooting cases
-* Simple monitoring setup
-* Load testing between VMs
-* Automation using shell scripts
-* A small logging or metrics dashboard
+# 🎉 Done!
 
 ---
